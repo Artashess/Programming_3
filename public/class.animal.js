@@ -1,10 +1,7 @@
-class Animal {
+class Animal extends LivingCreature{
     constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
+        super(x, y, index)
         this.energy = 10;
-        this.index = index;
-        this.directions = [];
         this.acted = false;
 
     }
@@ -39,20 +36,7 @@ class Animal {
 
     chooseCell(num) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == num) {
-                    found.push([x, y]);
-                }
-                else if (matrix[y][x].index == num) {
-                    found.push([x, y]);
-                }
-            }
-        }
-        return found;
+        return super.chooseCell(num);
     }
 
     mul() {

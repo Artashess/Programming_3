@@ -19,7 +19,7 @@ function setup() {
             matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5]);
         }
     }
-    frameRate(1);
+    frameRate(20);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
     for (var y = 0; y < matrix.length; y++) {
