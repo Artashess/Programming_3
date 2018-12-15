@@ -1,3 +1,4 @@
+var LivingCreature = require("./Moduls/class.livingcreature");
 
 module.exports = class Fermer extends LivingCreature {
     constructor(x, y, index) {

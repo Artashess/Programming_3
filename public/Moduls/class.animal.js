@@ -1,3 +1,5 @@
+var LivingCreature = require("./Moduls/class.livingcreature");
+
 module.exports = class Animal extends LivingCreature{
     constructor(x, y, index) {
         super(x, y, index)
