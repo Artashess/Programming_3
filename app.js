@@ -9,5 +9,24 @@ app.get('/', function (req, res) {
 });
 server.listen(3000);
 
-var Square = require("./module");
-var mySquareObject = new Square(5);
+var grass = require("./Moduls/class.grass");
+var grasseater = require("./Moduls/class.grasseater");
+var Animal = require("./Moduls/class.animal");
+var Fermer = require("./Moduls/class.fermer");
+var ice = require("./Moduls/class.ice");
+ 
+var time = frameRate(5);
+function frameRate(frameCount)
+{
+    return 1000 / frameCount;
+}
+function draw(){
+    for(var i in grass)
+    {
+        grass[i].mul();
+
+    }
+    socket.emit("update matrix", matrix.js);
+    console.log(matrix);
+}
+setInterval(draw, time);

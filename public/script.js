@@ -44,7 +44,7 @@ function setup() {
         }
     }
 }
-function draw() {
+function draw(matrix) {
 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
