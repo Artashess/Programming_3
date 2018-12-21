@@ -1,10 +1,18 @@
-var matrix = [];
+// var matrix = [];
 function setup() {
-    // for (var y = 0; y < n; y++) {
-    //     matrix[y] = [];
-    //     for (var x = 0; x < m; x++) {
-    //         matrix[y][x] = random([0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 4, 5]);
-    //     }
-    // }
 }
+
+function matrixArray(rows, columns) {
+    var arr = new Array();
+    for (var i = 0; i < rows; i++) {
+        arr[i] = new Array();
+        for (var j = 0; j < columns; j++) {
+            arr[i][j] = Math.floor(Math.random()*(5-0))+0;
+        }
+    } 
+    return arr;
+}
+var matrix = matrixArray(5, 3);
+
+console.log(matrix);
 module.exports = matrix.js

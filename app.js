@@ -5,15 +5,18 @@ var io = require('socket.io')(server);
 
 app.use(express.static("."));
 app.get('/', function (req, res) {
-   res.redirect('index.html');
+   res.redirect('public/index.html');
 });
 server.listen(3000);
 
+var matrix = require("./Moduls/matrix");
+var LivingCreature = require("./Moduls/class.livingcreature");
 var grass = require("./Moduls/class.grass");
 var grasseater = require("./Moduls/class.grasseater");
 var Animal = require("./Moduls/class.animal");
 var Fermer = require("./Moduls/class.fermer");
 var ice = require("./Moduls/class.ice");
+
  
 var time = frameRate(5);
 function frameRate(frameCount)
