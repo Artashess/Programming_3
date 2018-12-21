@@ -78,6 +78,7 @@ module.exports = class Fermer extends LivingCreature {
 
     move() {
         if (this.acted == false) {
+
             var newCell = random(this.chooseCell(0));
             if (newCell && this.sarac == false) {
                 var newX = newCell[0];
@@ -97,6 +98,7 @@ module.exports = class Fermer extends LivingCreature {
             }
 
         }
+        else this.acted = false;
     }
     eat() {
         if (this.acted == false) {

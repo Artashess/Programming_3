@@ -70,6 +70,7 @@ module.exports = class Animal extends LivingCreature{
                 this.die();
             }
         }
+        else this.acted = false;        
     }
     eat() {
         if (this.acted == false) {

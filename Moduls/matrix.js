@@ -1,6 +1,8 @@
-// var matrix = [];
-function setup() {
-}
+grassqanak = 400;
+grasseaterqanak = 100;
+animalqanak = 50;
+fermerqanak = 50;
+iceqanak = 10;
 
 function matrixArray(rows, columns) {
     var arr = new Array();
@@ -11,8 +13,8 @@ function matrixArray(rows, columns) {
         }
     } 
     return arr;
-}
+}       
 var matrix = matrixArray(5, 3);
 
 console.log(matrix);
-module.exports = matrix.js
+module.exports = matrix

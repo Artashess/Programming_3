@@ -1,6 +1,6 @@
 var LivingCreature = require("./class.livingcreature");
 
-module.exports = class GrassEater extends LivingCreature{
+module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
         this.energy = 8;
@@ -16,7 +16,7 @@ module.exports = class GrassEater extends LivingCreature{
             [this.x - 1, this.y + 1],
             [this.x, this.y + 1],
             [this.x + 1, this.y + 1]
-        ];  
+        ];
     }
 
     chooseCell(num) {
@@ -52,7 +52,9 @@ module.exports = class GrassEater extends LivingCreature{
                     this.die();
                 }
             }
+
         }
+        else this.acted = false;
     }
     eat() {
         if (this.acted == false) {
