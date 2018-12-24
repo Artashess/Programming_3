@@ -19,13 +19,13 @@ module.exports = class GrassEater extends LivingCreature {
         ];
     }
 
-    chooseCell(num) {
+    chooseCell(num, matrix) {
         this.getNewCoordinates();
-        return super.chooseCell(num);
+        return super.chooseCell(num, matrix);
     }
 
-    mul() {
-        var newCell = random(this.chooseCell(0));
+    mul(matrix) {
+        var newCell = random_items(this.chooseCell(0, matrix));
         if (newCell && this.energy >= 10) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -34,9 +34,9 @@ module.exports = class GrassEater extends LivingCreature {
         }
     }
 
-    move() {
+    move(matrix) {
         if (this.acted == false) {
-            var newCell = random(this.chooseCell(0));
+            var newCell = random_items(this.chooseCell(0, matrix));
             if (newCell) {
                 var newX = newCell[0];
                 var newY = newCell[1];
@@ -49,16 +49,16 @@ module.exports = class GrassEater extends LivingCreature {
 
                 this.energy--;
                 if (this.energy <= 0) {
-                    this.die();
+                    this.die(matrix);
                 }
             }
 
         }
         else this.acted = false;
     }
-    eat() {
+    eat(matrix) {
         if (this.acted == false) {
-            var GrassCord = random(this.chooseCell(1));
+            var GrassCord = random_items(this.chooseCell(1, matrix));
 
             if (GrassCord) {
                 this.energy++;
@@ -72,16 +72,19 @@ module.exports = class GrassEater extends LivingCreature {
                 this.y = newY;
                 this.acted = true;
                 if (this.energy >= 10) {
-                    this.mul();
+                    this.mul(matrix);
                     this.energy = 3;
                 }
             }
             else {
-                this.move();
+                this.move(matrix);
             }
         }
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0;
     }
+}
+function random_items(items) {
+    return items[Math.floor(Math.random() * items.length)];
 }

@@ -3,11 +3,13 @@ var m = 80;
 var side = 10;
 var i = 0;
 var socket = io();
+var matrix;
 
 function setup()
 {
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    frameRate(5);
+    frameRate(10);
+    createCanvas(n * side + 650, 600);
+    background('White');
     noLoop();
 }
 function draw() {
@@ -54,14 +56,11 @@ function draw() {
     }
 }
 
-socket.on('first matrix', function(mtx){
-    matrix = mtx;
-    console.log(matrix);
-    createCanvas(matrix[0].length * side, matrix.length * side);
-    background('#acacac');
-
-    socket.on("redraw", function(mtx){
-        matrix = mtx;
+function main() {
+    socket = io();
+	socket.on("matrix", function(data){
+        matrix = data;
         redraw();
-    });
-});
+    })
+}
+window.onload = main;

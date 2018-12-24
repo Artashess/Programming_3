@@ -59,15 +59,15 @@ module.exports = class ice extends LivingCreature{
         ];
     }
 
-    chooseCell(num) {
+    chooseCell(num, matrix) {
         this.getNewCoordinates();
-        return super.chooseCell(num);
+        return super.chooseCell(num, matrix);
     }
 
-    freeze() {
+    freeze(matrix) {
         this.takt++;
 
-        var FermerCord = random(this.chooseCell(4));
+        var FermerCord = random_items(this.chooseCell(random_items(4), matrix));
 
         if (FermerCord) {
 
@@ -76,12 +76,15 @@ module.exports = class ice extends LivingCreature{
 
             matrix[newY][newX].sarac = true;
            // if( matrix[newY][newX].acted= false){
-                this.die();
+                this.die(matrix);
            // }
         }
     
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0;
     }
+}
+function random_items(items) {
+    return items[Math.floor(Math.random() * items.length)];
 }

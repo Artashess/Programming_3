@@ -1,4 +1,5 @@
 var LivingCreature = require("./class.livingcreature");
+var Grass = require("./class.grass");
 
 module.exports = class Fermer extends LivingCreature {
     constructor(x, y, index) {
@@ -62,13 +63,13 @@ module.exports = class Fermer extends LivingCreature {
         ];
     }
 
-    chooseCell(num) {
+    chooseCell(num, matrix) {
         this.getNewCoordinates();
-        return super.chooseCell(num);
+        return super.chooseCell(num, matrix);
     }
 
-    mul() {
-        var newCell = random(this.chooseCell(0));
+    mul(matrix) {
+        var newCell = random_items(this.chooseCell(0, matrix));
         if (newCell && this.energy >= 19) {
             var newX = newCell[0];
             var newY = newCell[1]; //
@@ -76,10 +77,10 @@ module.exports = class Fermer extends LivingCreature {
         }
     }
 
-    move() {
+    move(matrix) {
         if (this.acted == false) {
 
-            var newCell = random(this.chooseCell(0));
+            var newCell = random_items(this.chooseCell(0, matrix));
             if (newCell && this.sarac == false) {
                 var newX = newCell[0];
                 var newY = newCell[1];
@@ -94,16 +95,16 @@ module.exports = class Fermer extends LivingCreature {
             }
             this.energy--;
             if (this.energy <= 0) {
-                this.die();
+                this.die(matrix);
             }
 
         }
         else this.acted = false;
     }
-    eat() {
+    eat(matrix) {
         if (this.acted == false) {
 
-            var AnimalCord = random(this.chooseCell(3));
+            var AnimalCord = random_items(this.chooseCell(random_items(3), matrix));
 
             if (AnimalCord && this.sarac == false) {
                 var newX = AnimalCord[0];
@@ -118,18 +119,21 @@ module.exports = class Fermer extends LivingCreature {
                 this.energy++;
 
                 if (this.energy >= 19) {
-                    this.mul();
+                    this.mul(matrix);
                     this.energy = 6;
                 }
                 this.acted = true;
 
             }
             else {
-                this.move();
+                this.move(matrix);
             }
         }
     }
-    die() {
+    die(matrix) {
         matrix[this.y][this.x] = 0;
     }
+}
+function random_items(items) {
+    return items[Math.floor(Math.random() * items.length)];
 }
