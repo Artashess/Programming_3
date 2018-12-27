@@ -1,6 +1,6 @@
 var LivingCreature = require("./class.livingcreature");
 
-module.exports = class Animal extends LivingCreature{
+module.exports = class Animal extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
         this.energy = 10;
@@ -47,6 +47,7 @@ module.exports = class Animal extends LivingCreature{
             var newY = newCell[1]; //
             matrix[newY][newX] = new Animal(newX, newY, 3);
         }
+        else this.acted = false;
     }
 
     move(matrix) {
@@ -60,7 +61,7 @@ module.exports = class Animal extends LivingCreature{
 
                 this.x = newX;
                 this.y = newY;
-                this.acted = true;
+
 
 
             }
@@ -68,8 +69,9 @@ module.exports = class Animal extends LivingCreature{
             if (this.energy <= 0) {
                 this.die(matrix);
             }
+            this.acted = true;
         }
-        else this.acted = false;        
+        else this.acted = false;
     }
     eat(matrix) {
         if (this.acted == false) {
@@ -90,11 +92,13 @@ module.exports = class Animal extends LivingCreature{
                     this.mul(matrix);
                     this.energy = 7;
                 }
+                this.acted = false;
             }
             else {
                 this.move(matrix);
             }
         }
+        else this.acted = false;
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;

@@ -63,7 +63,7 @@ module.exports = class ice extends LivingCreature{
         this.getNewCoordinates();
         return super.chooseCell(num, matrix);
     }
-
+    
     freeze(matrix) {
         this.takt++;
 
@@ -74,10 +74,10 @@ module.exports = class ice extends LivingCreature{
             var newX = FermerCord[0];
             var newY = FermerCord[1];
 
-            matrix[newY][newX].sarac = true;
-           // if( matrix[newY][newX].acted= false){
+            if (matrix[newY][newX] != 0) {
+                matrix[newY][newX].sarac = true;
                 this.die(matrix);
-           // }
+            }
         }
     
     }

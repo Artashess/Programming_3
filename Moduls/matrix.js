@@ -1,6 +1,6 @@
 var matrix = [];
-var H = 80;
-var W = 80;
+var H = 20;
+var W = 20;
 
 grassqanak = 400;
 grasseaterqanak = 100;

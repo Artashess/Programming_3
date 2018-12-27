@@ -75,6 +75,7 @@ module.exports = class Fermer extends LivingCreature {
             var newY = newCell[1]; //
             matrix[newY][newX] = new Fermer(newX, newY, 4);
         }
+        else this.acted = false;
     }
 
     move(matrix) {
@@ -88,16 +89,14 @@ module.exports = class Fermer extends LivingCreature {
                 matrix[this.y][this.x] = 0;
 
                 this.x = newX;
-                this.y = newY;
-                this.acted = true;
-
+                this.y = newY;           
 
             }
             this.energy--;
             if (this.energy <= 0) {
                 this.die(matrix);
             }
-
+            this.acted = true;
         }
         else this.acted = false;
     }
@@ -123,12 +122,12 @@ module.exports = class Fermer extends LivingCreature {
                     this.energy = 6;
                 }
                 this.acted = true;
-
             }
             else {
                 this.move(matrix);
             }
         }
+        else this.acted = false;
     }
     die(matrix) {
         matrix[this.y][this.x] = 0;
