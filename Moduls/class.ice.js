@@ -64,7 +64,7 @@ module.exports = class ice extends LivingCreature{
         return super.chooseCell(num, matrix);
     }
     
-    freeze(matrix) {
+    freeze(matrix, stat) {
         this.takt++;
 
         var FermerCord = random_items(this.chooseCell(random_items(4), matrix));
