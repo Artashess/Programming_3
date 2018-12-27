@@ -3,7 +3,7 @@ var LivingCreature = require("./class.livingcreature");
 module.exports = class GrassEater extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 8;
+        this.energy = 7;
         this.acted = false;
     }
     getNewCoordinates() {
@@ -24,9 +24,15 @@ module.exports = class GrassEater extends LivingCreature {
         return super.chooseCell(num, matrix);
     }
 
-    mul(matrix, stat) {
+    mul(matrix, stat, currentSeason) {
+        if(currentSeason == "Winter"){
+            var needToMul = 10;
+        }
+        else if(currentSeason == "Spring"){
+            var needToMul = 5;
+        }
         var newCell = random_items(this.chooseCell(0, matrix));
-        if (newCell && this.energy >= 10) {
+        if (newCell && this.energy >= needToMul) {
             var newX = newCell[0];
             var newY = newCell[1];
             stat.Added_GrassEater++;
@@ -47,19 +53,18 @@ module.exports = class GrassEater extends LivingCreature {
 
                 this.x = newX;
                 this.y = newY;
-                
-
-                this.energy--;
+                     
                 if (this.energy <= 0) {
                     this.die(matrix, stat);
                 }
                 this.acted = true;
             }
+            this.energy--;
 
         }
         else this.acted = false;
     }
-    eat(matrix, stat) {
+    eat(matrix, stat, currentSeason) {
         if (this.acted == false) {
             var GrassCord = random_items(this.chooseCell(1, matrix));
 
@@ -76,8 +81,8 @@ module.exports = class GrassEater extends LivingCreature {
                 this.y = newY;
                 
                 if (this.energy >= 10) {
-                    this.mul(matrix, stat);
-                    this.energy = 3;
+                    this.mul(matrix, stat, currentSeason);
+                    this.energy = 2;
                 }
                 this.acted = true;
             }

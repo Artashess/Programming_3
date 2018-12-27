@@ -68,20 +68,22 @@ module.exports = class ice extends LivingCreature{
         this.takt++;
 
         var FermerCord = random_items(this.chooseCell(random_items(4), matrix));
-
         if (FermerCord) {
 
             var newX = FermerCord[0];
             var newY = FermerCord[1];
 
-            if (matrix[newY][newX] != 0) {
-                matrix[newY][newX].sarac = true;
-                this.die(matrix);
-            }
+               // matrix[newY][newX].sarac = true;  Dont Working:
+                if (this.takt == 10){
+                    this.die(matrix, stat);
+                }
+                  
+
         }
     
     }
-    die(matrix) {
+    die(matrix, stat) {
+        stat.Died_ice++;
         matrix[this.y][this.x] = 0;
     }
 }

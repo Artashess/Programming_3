@@ -30,8 +30,12 @@ var stat = {
     "Added_Fermer": 0,
     "Added_GrassEater": 0
 }
+var seasons = ["Spring", "Summer", "Autumn", "Winter"];
+var currentSeason = seasons[0];
+var NumberForSeasonChanging = 0;
+
 io.on('connection', function (socket) {
-    socket.emit("matrix", [matrix, stat]);
+    socket.emit("matrix", [matrix, stat, currentSeason]);
 
     setInterval(function(){
         stat.Grass = 0;
@@ -43,19 +47,19 @@ io.on('connection', function (socket) {
         for (var y = 0; y < matrix.length; y++) {
             for (var x = 0; x < matrix[0].length; x++) {
                 if (matrix[y][x].index == 1) {
-                    matrix[y][x].mul(matrix, stat);
+                    matrix[y][x].mul(matrix, stat, currentSeason);
                     stat.Grass++;
                 }
                 else if (matrix[y][x].index == 2) {
-                    matrix[y][x].eat(matrix, stat);
+                    matrix[y][x].eat(matrix, stat, currentSeason);
                     stat.GrassEater++;
                 }
                 else if (matrix[y][x].index == 3) {
-                    matrix[y][x].eat(matrix, stat);
+                    matrix[y][x].eat(matrix, stat, currentSeason);
                     stat.Animal++;
                 }
                 else if (matrix[y][x].index == 4) {
-                    matrix[y][x].eat(matrix, stat);
+                    matrix[y][x].eat(matrix, stat, currentSeason);
                     stat.Fermer++;
                 }
                 else if (matrix[y][x].index == 5) {
@@ -65,13 +69,27 @@ io.on('connection', function (socket) {
             }
         }
         
+        if (NumberForSeasonChanging == 10) {
+            currentSeason = seasons[1];
+        }
+        else if (NumberForSeasonChanging == 20) {
+            currentSeason = seasons[2];
+        }
+        else if (NumberForSeasonChanging == 30) {
+            currentSeason = seasons[3];
+        }
+        else if (NumberForSeasonChanging >= 40) {
+            NumberForSeasonChanging = 0;
+            currentSeason = seasons[0];
+        }
+        NumberForSeasonChanging += 1;
+        //console.log(currentSeason);
         var myJson = JSON.stringify(stat);
         fs.writeFileSync("stat.json", myJson);
-
-        io.sockets.emit("matrix", [matrix, stat]);
+        
+        io.sockets.emit("matrix", [matrix, stat, currentSeason]);
     }, 1000);
 });
-
 function frameRate(frameCount)
 {
     return 1000 / frameCount;

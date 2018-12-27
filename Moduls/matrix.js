@@ -1,12 +1,12 @@
 var matrix = [];
-var H = 20;
-var W = 20;
+var H = 80;
+var W = 80;
 
-grassqanak = 400;
-grasseaterqanak = 100;
-animalqanak = 50;
-fermerqanak = 50;
-iceqanak = 10;
+grassqanak = H * W * 10/100;
+grasseaterqanak = H * W * 6/100;
+animalqanak = H * W * 2/100;
+fermerqanak = H * W * 0.09/100;
+iceqanak = H * W * 0.5/100;
 
 var Grass = require("./class.grass");
 var GrassEater = require("./class.grasseater");

@@ -4,7 +4,7 @@ var Grass = require("./class.grass");
 module.exports = class Fermer extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
-        this.energy = 15;
+        this.energy = 8;
         this.acted = false;
         this.sarac = false;
         this.saracCount = 0;
@@ -68,17 +68,24 @@ module.exports = class Fermer extends LivingCreature {
         return super.chooseCell(num, matrix);
     }
 
-    mul(matrix) {
+    mul(matrix, stat, currentSeason) {
+        if(currentSeason == "Winter"){
+            var needToMul = 13;
+        }
+        else if(currentSeason == "Spring"){
+            var needToMul = 8;
+        }
         var newCell = random_items(this.chooseCell(0, matrix));
-        if (newCell && this.energy >= 19) {
+        if (newCell && this.energy >= needToMul) {
             var newX = newCell[0];
-            var newY = newCell[1]; //
+            var newY = newCell[1]; 
+            stat.Added_Fermer++;
             matrix[newY][newX] = new Fermer(newX, newY, 4);
         }
         else this.acted = false;
     }
 
-    move(matrix) {
+    move(matrix, stat) {
         if (this.acted == false) {
 
             var newCell = random_items(this.chooseCell(0, matrix));
@@ -94,13 +101,13 @@ module.exports = class Fermer extends LivingCreature {
             }
             this.energy--;
             if (this.energy <= 0) {
-                this.die(matrix);
+                this.die(matrix, stat);
             }
             this.acted = true;
         }
         else this.acted = false;
     }
-    eat(matrix) {
+    eat(matrix, stat, currentSeason) {
         if (this.acted == false) {
 
             var AnimalCord = random_items(this.chooseCell(random_items(3), matrix));
@@ -117,19 +124,20 @@ module.exports = class Fermer extends LivingCreature {
                 this.y = newY;
                 this.energy++;
 
-                if (this.energy >= 19) {
-                    this.mul(matrix);
-                    this.energy = 6;
+                if (this.energy >= 13) {
+                    this.mul(matrix, stat, currentSeason);
+                    this.energy = 0;
                 }
                 this.acted = true;
             }
             else {
-                this.move(matrix);
+                this.move(matrix, stat);
             }
         }
         else this.acted = false;
     }
-    die(matrix) {
+    die(matrix, stat) {
+        stat.Died_Fermer++;
         matrix[this.y][this.x] = 0;
     }
 }
